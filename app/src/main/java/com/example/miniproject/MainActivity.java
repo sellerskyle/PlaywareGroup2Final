@@ -1,14 +1,12 @@
 package com.example.miniproject;
 
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.livelife.motolibrary.AntData;
 import com.livelife.motolibrary.MotoConnection;
 import com.livelife.motolibrary.MotoSound;
 import com.livelife.motolibrary.OnAntEventListener;
@@ -19,17 +17,15 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
     MotoSound sound = MotoSound.getInstance();
 
     Button paringButton;
-    Button chordsButton;
-    Button drumsButton;
+    Button TwoPlayerButton = findViewById(R.id.TwoPlayerButton);
+    Button ThreePlayerButton = findViewById(R.id.ThreePlayerButton);
 
     boolean isParing = false;
 
     TextView statusTextView;
-    TextView counter;
-    TextView chordView;
 
     int tilesConnected;
-    int numPresses = 0;
+    int numberOfPlayers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
         connection.registerListener(MainActivity.this);
 
         statusTextView = findViewById(R.id.statusTextView);
-        chordView = findViewById(R.id.chordView);
 
         paringButton = findViewById(R.id.paringButton);
         paringButton.setOnClickListener(new View.OnClickListener() {
@@ -62,33 +57,26 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
             }
         });
 
-        chordsButton = findViewById(R.id.chordsButton);
-        chordsButton.setOnClickListener(new View.OnClickListener() {
+        TwoPlayerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
+                numberOfPlayers = 2;
                 connection.unregisterListener(MainActivity.this);
-                Intent i = new Intent(MainActivity.this, ChordsActivity.class);
+                Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
+                i.putExtra("player",numberOfPlayers)
                 startActivity(i);
-//                if(!isChords){
-//                    connection.setAllTilesColor(AntData.LED_COLOR_WHITE); //TODO Redo this
-//                    chordsButton.setText("Don't Something");
-//                } else {
-//                    connection.setAllTilesBlink(2, AntData.LED_COLOR_WHITE);
-//                    chordsButton.setText("Do Something");
-//                }
-//                isChords = !isChords;
             }
         });
 
-        drumsButton = findViewById(R.id.drumsButton);
-        drumsButton.setOnClickListener(new View.OnClickListener() {
+        ThreePlayerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                numberOfPlayers = 3;
                 connection.unregisterListener(MainActivity.this);
-                Intent i = new Intent(MainActivity.this, DrumsActivity.class);
+                Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
+                i.putExtra("player",numberOfPlayers)
                 startActivity(i);
             }
         });
