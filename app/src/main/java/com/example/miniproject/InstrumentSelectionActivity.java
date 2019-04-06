@@ -13,6 +13,9 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements On
         MotoSound sound = MotoSound.getInstance();
         int tilesConnected = 0;
         int tilesPerPlayer = 0;
+        int color [] = {1,2,3,4,5}; // Red,Blue,Green,Indigo,Orange
+        int AItiles = 0;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chords);
@@ -22,41 +25,24 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements On
         int numberOfPlayers = bundle.getInt("player");
 
         //Showing which tiles belongs to which player
-        if(numberOfPlayers == 2) {
-            for (Integer i : connection.connectedTiles) {
-                switch (i % 7) {
-                    case 1:
-                        connection.setTileColor(AntData.LED_COLOR_RED, i);
-                        connection.setTileColorRelease(AntData.LED_COLOR_RED, i);
-                        break;
-                    case 5:
-                        connection.setTileColor(AntData.LED_COLOR_ORANGE, i);
-                        connection.setTileColorRelease(AntData.LED_COLOR_ORANGE, i);
-                        break;
-                    case 6:
-                        connection.setTileColor(AntData.LED_COLOR_GREEN, i);
-                        connection.setTileColorRelease(AntData.LED_COLOR_GREEN, i);
-                        break;
-                    default:
+        tilesPerPlayer = tilesConnected/numberOfPlayers;
 
-                }
+        if (tilesPerPlayer == 5){
+            tilesPerPlayer = 4;
+        }
+
+        for(int i = 0 ; i < numberOfPlayers; i++){
+            for(int j = 1 ; j <= tilesPerPlayer; j++){
+                connection.setTileColor(color[i], i);
+                connection.setTileColorRelease(color[i], i);
             }
-        } else if(numberOfPlayers == 3) {
-            tilesPerPlayer = tilesConnected/numberOfPlayers;
-            for(int i = 0 ; i < numberOfPlayers; i++){
-                for(int j = 1 ; j <= tilesPerPlayer; j++){
-                    connection.setTileColor(AntData.LED_COLOR_GREEN, i);
-                    connection.setTileColorRelease(AntData.LED_COLOR_GREEN, i);
-                }
+        }
 
-            }
-            for (Integer i : connection.connectedTiles) {
-                connection.setTileColor(AntData.LED_COLOR_GREEN, i);
-                connection.setTileColorRelease(AntData.LED_COLOR_GREEN, i);
+        AItiles = tilesConnected-(numberOfPlayers*tilesPerPlayer);
 
-            }
-
-
+        for(int i = 0 ; i < AItiles; i++){
+            connection.setTileColor(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
+            connection.setTileColorRelease(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
         }
     }
 
