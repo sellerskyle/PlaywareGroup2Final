@@ -9,6 +9,7 @@ import com.livelife.motolibrary.MotoSound;
 import com.livelife.motolibrary.OnAntEventListener;
 
 public class InstrumentSelectionActivity extends AppCompatActivity implements OnAntEventListener {
+
         MotoConnection connection = MotoConnection.getInstance();
         MotoSound sound = MotoSound.getInstance();
         int tilesConnected = 0;
