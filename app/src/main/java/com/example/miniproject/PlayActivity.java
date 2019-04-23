@@ -282,7 +282,7 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                     }
                 });
             }
-        } else if (AntData.getId(bytes) == 7) {
+        } else if (AntData.getId(bytes) == 8) {
             if (playernum == 3) {
                 //method for 3rd instrument
                 runOnUiThread(new Runnable() {
