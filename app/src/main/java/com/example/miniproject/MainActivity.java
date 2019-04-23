@@ -1,17 +1,18 @@
 package com.example.miniproject;
-
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.livelife.motolibrary.AntData;
 import com.livelife.motolibrary.MotoConnection;
 import com.livelife.motolibrary.MotoSound;
 import com.livelife.motolibrary.OnAntEventListener;
+
+
 
 public class MainActivity extends AppCompatActivity implements OnAntEventListener {
 
@@ -19,8 +20,7 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
     MotoSound sound = MotoSound.getInstance();
 
     Button paringButton;
-    Button chordsButton;
-    Button drumsButton;
+    Button instrumentSelection;
 
     boolean isParing = false;
 
@@ -62,36 +62,24 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
             }
         });
 
-        chordsButton = findViewById(R.id.chordsButton);
-        chordsButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                connection.unregisterListener(MainActivity.this);
-                Intent i = new Intent(MainActivity.this, ChordsActivity.class);
-                startActivity(i);
-//                if(!isChords){
-//                    connection.setAllTilesColor(AntData.LED_COLOR_WHITE); //TODO Redo this
-//                    chordsButton.setText("Don't Something");
-//                } else {
-//                    connection.setAllTilesBlink(2, AntData.LED_COLOR_WHITE);
-//                    chordsButton.setText("Do Something");
-//                }
-//                isChords = !isChords;
-            }
-        });
-
-        drumsButton = findViewById(R.id.drumsButton);
-        drumsButton.setOnClickListener(new View.OnClickListener() {
-
+        instrumentSelection = findViewById(R.id.instrumentselection);
+        instrumentSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 connection.unregisterListener(MainActivity.this);
-                Intent i = new Intent(MainActivity.this, DrumsActivity.class);
+                Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
                 startActivity(i);
             }
         });
+
+//        Spinner instrumentSelection = (Spinner) findViewById(R.id.spinner);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.instrument_options
+//                , R.layout.support_simple_spinner_dropdown_item);
+//
+//        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+//
+//        instrumentSelection.setAdapter(adapter);
+
     }
 
     @Override
