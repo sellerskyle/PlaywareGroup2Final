@@ -1,15 +1,20 @@
 package com.example.miniproject;
-
 import android.content.Intent;
+
 import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.livelife.motolibrary.MotoConnection;
 import com.livelife.motolibrary.MotoSound;
 import com.livelife.motolibrary.OnAntEventListener;
+
+
 
 public class MainActivity extends AppCompatActivity implements OnAntEventListener {
 
@@ -19,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
     Button paringButton;
     Button TwoPlayerButton = findViewById(R.id.TwoPlayerButton);
     Button ThreePlayerButton = findViewById(R.id.ThreePlayerButton);
+
 
     boolean isParing = false;
 
