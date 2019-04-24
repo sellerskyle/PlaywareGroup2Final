@@ -1,7 +1,9 @@
 package com.example.miniproject;
 import android.content.Intent;
-import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
+
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,16 +22,16 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
     MotoSound sound = MotoSound.getInstance();
 
     Button paringButton;
-    Button instrumentSelection;
+    Button TwoPlayerButton = findViewById(R.id.TwoPlayerButton);
+    Button ThreePlayerButton = findViewById(R.id.ThreePlayerButton);
+
 
     boolean isParing = false;
 
     TextView statusTextView;
-    TextView counter;
-    TextView chordView;
 
     int tilesConnected;
-    int numPresses = 0;
+    int numberOfPlayers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
         connection.registerListener(MainActivity.this);
 
         statusTextView = findViewById(R.id.statusTextView);
-        chordView = findViewById(R.id.chordView);
 
         paringButton = findViewById(R.id.paringButton);
         paringButton.setOnClickListener(new View.OnClickListener() {
@@ -62,24 +63,29 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
             }
         });
 
-        instrumentSelection = findViewById(R.id.instrumentselection);
-        instrumentSelection.setOnClickListener(new View.OnClickListener() {
+        TwoPlayerButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                numberOfPlayers = 2;
                 connection.unregisterListener(MainActivity.this);
                 Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
+                i.putExtra("player",numberOfPlayers)
                 startActivity(i);
             }
         });
 
-//        Spinner instrumentSelection = (Spinner) findViewById(R.id.spinner);
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.instrument_options
-//                , R.layout.support_simple_spinner_dropdown_item);
-//
-//        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-//
-//        instrumentSelection.setAdapter(adapter);
+        ThreePlayerButton.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
+                numberOfPlayers = 3;
+                connection.unregisterListener(MainActivity.this);
+                Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
+                i.putExtra("player",numberOfPlayers)
+                startActivity(i);
+            }
+        });
     }
 
     @Override
