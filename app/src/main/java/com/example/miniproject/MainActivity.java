@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.livelife.motolibrary.AntData;
 import com.livelife.motolibrary.MotoConnection;
 import com.livelife.motolibrary.MotoSound;
 import com.livelife.motolibrary.OnAntEventListener;
@@ -18,12 +19,14 @@ import com.livelife.motolibrary.OnAntEventListener;
 
 public class MainActivity extends AppCompatActivity implements OnAntEventListener {
 
-    MotoConnection connection = MotoConnection.getInstance();
+    MotoConnection connection;// = MotoConnection.getInstance();
     MotoSound sound = MotoSound.getInstance();
 
     Button paringButton;
     Button TwoPlayerButton;
     Button ThreePlayerButton;
+
+    TextView tileIDs;
 
 
     boolean isParing = false;
@@ -37,10 +40,12 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         setTitle("JAM!");
 
         sound.initializeSounds(this);
 
+        connection=MotoConnection.getInstance();
         connection.startMotoConnection(MainActivity.this);
         connection.saveRfFrequency(26); //(Group No.)*10+6
         connection.setDeviceId(2); //Your group number
@@ -49,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
         statusTextView = findViewById(R.id.statusTextView);
 
         paringButton = findViewById(R.id.paringButton);
+        //tileIDs = findViewById(R.id.tileIDs);
+        //tileIDs.setText(connection.);
         paringButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -73,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
                 connection.unregisterListener(MainActivity.this);
                 Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
                 i.putExtra("player",numberOfPlayers);
+
                 startActivity(i);
             }
         });
@@ -89,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
                 startActivity(i);
             }
         });
+
+        //connection.setAllTilesColor(AntData.LED_COLOR_BLUE);
     }
 
     @Override

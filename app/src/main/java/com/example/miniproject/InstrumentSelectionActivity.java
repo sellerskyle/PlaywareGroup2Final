@@ -12,6 +12,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,7 +27,7 @@ import java.util.Set;
 
 public class InstrumentSelectionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, OnAntEventListener {
 
-    MotoConnection connection = MotoConnection.getInstance();
+    MotoConnection connection;// = MotoConnection.getInstance();
     MotoSound sound = MotoSound.getInstance();
     int tilesConnected = 0;
     int tilesPerPlayer = 0;
@@ -49,6 +50,9 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
         setContentView(R.layout.activity_instrument_selection);
         setTitle("JAM!");
 
+        connection=MotoConnection.getInstance();
+        connection.registerListener(this);
+
         Bundle bundle =this.getIntent().getExtras();
         numberOfPlayers = bundle.getInt("player");
 
@@ -63,25 +67,32 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
         }
 
         //Showing which tiles belongs to which player
+        tilesConnected = connection.connectedTiles.size();
         tilesPerPlayer = tilesConnected / numberOfPlayers;
 
         if (tilesPerPlayer == 5){
             tilesPerPlayer = 4;
         }
 
+
+        connection.setAllTilesColor(AntData.LED_COLOR_OFF);
         for(int i = 0 ; i < numberOfPlayers; i++){
-            for(int j = 1 ; j <= tilesPerPlayer; j++){
-                connection.setTileColor(color[i], j);
-                connection.setTileColorRelease(color[i], j);
+            for(int j = 0 ; j < tilesPerPlayer; j++){
+                int tileid=(tilesPerPlayer*i)+j+1;
+                Log.v("Game","Id:" + tileid);
+                connection.setTileColor(color[i], tileid);
             }
         }
 
         AItiles = tilesConnected-(numberOfPlayers*tilesPerPlayer);
 
         for(int i = 0 ; i < AItiles; i++){
-            connection.setTileColor(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
-                    connection.setTileColorRelease(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
+            //connection.setTileColor(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
+           // connection.setTileColor(color[3], (10));
+           // connection.setTileColorRelease(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
         }
+
+
 
 
         Spinner player1 = (Spinner) findViewById(R.id.player1selection);
@@ -171,6 +182,9 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
 
     @Override
     public void onMessageReceived(byte[] bytes, long l) {
+
+        int tileid=AntData.getId(bytes);
+        Log.v("game","pressed id:"+tileid);
 
     }
 
