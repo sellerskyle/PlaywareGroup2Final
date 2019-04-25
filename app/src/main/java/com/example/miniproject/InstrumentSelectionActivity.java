@@ -75,7 +75,6 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
         }
 
 
-
         connection.setAllTilesColor(AntData.LED_COLOR_OFF);
         for(int i = 0 ; i < numberOfPlayers; i++){
             for(int j = 0 ; j < tilesPerPlayer; j++){
