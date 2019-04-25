@@ -11,6 +11,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ChordsActivity"></activity>
         <activity android:name=".DrumsActivity"></activity>
+        <activity android:name=".PlayActivity"></activity>
+        <activity android:name=".InstrumentSelectionActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

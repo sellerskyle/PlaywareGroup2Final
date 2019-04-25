@@ -30,7 +30,7 @@ public class DrumsActivity extends AppCompatActivity implements OnAntEventListen
     MediaPlayer snare;
     MediaPlayer closedHat;
     MediaPlayer openHat;
-    MediaPlayer loop;
+    PerfectLoopMediaPlayer loop;
 
     int tilesConnected = 0;
 
@@ -45,8 +45,8 @@ public class DrumsActivity extends AppCompatActivity implements OnAntEventListen
         closedHat = MediaPlayer.create(this, R.raw.closedhat707);
         openHat = MediaPlayer.create(this, R.raw.openhat707);
 
-        loop = MediaPlayer.create(this, R.raw.deadmau5chords);
-        loop.setLooping(true);
+        loop = PerfectLoopMediaPlayer.create(this, R.raw.deadmau5chords);
+        //loop.setLooping(true);
 
         drumView = findViewById(R.id.drumView);
         drumLayout = findViewById(R.id.drumLayout);
@@ -78,7 +78,7 @@ public class DrumsActivity extends AppCompatActivity implements OnAntEventListen
             @Override
             public void onClick(View view) {
                 loop.stop();
-                loop.prepareAsync();
+                //loop.prepareAsync();
             }
         });
 

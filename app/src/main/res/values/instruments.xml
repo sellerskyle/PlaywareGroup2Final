@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="instrument_options">
+        <item>DRUMS</item>
+        <item>CHORDS</item>
+        <item>MELODY</item>
+        <item>BASS</item>
+    </string-array>
+</resources>
