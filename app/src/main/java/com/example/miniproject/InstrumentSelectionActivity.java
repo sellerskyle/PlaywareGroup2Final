@@ -80,7 +80,7 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
 
         for(int i = 0 ; i < AItiles; i++){
             connection.setTileColor(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
-            connection.setTileColorRelease(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
+                    connection.setTileColorRelease(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
         }
 
 
