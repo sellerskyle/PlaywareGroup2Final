@@ -6,9 +6,9 @@ import com.livelife.motolibrary.AntData;
 
 import java.util.ArrayList;
 
-public class Drums {
+public class Drums implements Instrument{
     private ArrayList<Sound> drumSounds;
-
+    private boolean isLooped = false;
     public Drums() {
         drumSounds = new ArrayList<>();
         Sound kick = new Sound(R.raw.kick707, AntData.LED_COLOR_BLUE, "Kick");
@@ -25,4 +25,5 @@ public class Drums {
     public Sound get(int index) {
         return drumSounds.get(index);
     }
+    public boolean isLooped() {return isLooped;}
 }

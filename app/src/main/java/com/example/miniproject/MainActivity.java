@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
     MotoSound sound = MotoSound.getInstance();
 
     Button paringButton;
-    Button TwoPlayerButton = findViewById(R.id.TwoPlayerButton);
-    Button ThreePlayerButton = findViewById(R.id.ThreePlayerButton);
+    Button TwoPlayerButton;
+    Button ThreePlayerButton;
 
 
     boolean isParing = false;
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("JAM!");
 
         sound.initializeSounds(this);
 
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
             }
         });
 
+        TwoPlayerButton = findViewById(R.id.TwoPlayerButton);
         TwoPlayerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -70,11 +72,12 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
                 numberOfPlayers = 2;
                 connection.unregisterListener(MainActivity.this);
                 Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
-                i.putExtra("player",numberOfPlayers)
+                i.putExtra("player",numberOfPlayers);
                 startActivity(i);
             }
         });
 
+        ThreePlayerButton = findViewById(R.id.ThreePlayerButton);
         ThreePlayerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
                 numberOfPlayers = 3;
                 connection.unregisterListener(MainActivity.this);
                 Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
-                i.putExtra("player",numberOfPlayers)
+                i.putExtra("player",numberOfPlayers);
                 startActivity(i);
             }
         });

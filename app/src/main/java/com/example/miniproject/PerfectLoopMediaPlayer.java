@@ -11,7 +11,7 @@ import java.io.IOException;
  * Created by viksaaskool on 13-04-2017.
  */
 
-public class PerfectLoopMediaPlayer {
+public class PerfectLoopMediaPlayer extends MediaPlayer{
 
 
     private static final String TAG = PerfectLoopMediaPlayer.class.getName();

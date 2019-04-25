@@ -4,8 +4,9 @@ import com.livelife.motolibrary.AntData;
 
 import java.util.ArrayList;
 
-public class ChordsSynth {
+public class ChordsSynth implements Instrument{
    private ArrayList<Sound> synthSounds;
+    private  boolean isLooped = true;
 
     public ChordsSynth() {
 
@@ -30,4 +31,5 @@ public class ChordsSynth {
     public Sound get(int index) {
         return synthSounds.get(index);
     }
+    public boolean isLooped() {return isLooped;}
 }

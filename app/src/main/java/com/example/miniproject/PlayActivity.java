@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -27,10 +28,11 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
 
     int playernum = 3; //Change it to the actual number of players selected.
 
-    Button backButton;
-    Button playButton;
-    Button stopButton;
+
     ConstraintLayout drumLayout;
+
+    Button playLoop;
+    Button stopLoop;
 
     MediaPlayer kick;
     MediaPlayer snare;
@@ -44,6 +46,8 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        setTitle("JAM!");
+
         connection.registerListener(this);
         // This part is copied and pasted. I think this originally called the instruments. Since this may now be subjugated to
         // A different class, we may delete these called methods.
@@ -52,46 +56,32 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
         closedHat = MediaPlayer.create(this, R.raw.closedhat707);
         openHat = MediaPlayer.create(this, R.raw.openhat707);
 
-        loop = MediaPlayer.create(this, R.raw.deadmau5chords);
-        loop.setLooping(true);
+        loop = PerfectLoopMediaPlayer.create(this, R.raw.deadmau5chords);
         //The squares where it says what instrument is currently playing are called player1, player2 and so on.
         player1 = findViewById(R.id.player1);
         player2 = findViewById(R.id.player2);
         player3 = findViewById(R.id.player3);
         player4 = findViewById(R.id.player4);
 
-//        backButton = findViewById(R.id.backButton);
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                connection.setAllTilesBlink(2, AntData.LED_COLOR_WHITE);
-//                connection.unregisterListener(DrumsActivity.this);
-//                Intent i = new Intent(DrumsActivity.this, MainActivity.class);
-//                startActivity(i);
-//            }
-//        });
-
         //This is the part of the code that implemented the "play" melody on the drums.
 
-//        playButton = findViewById(R.id.playButton);
-//        playButton.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                loop.start();
-//            }
-//        });
+        playLoop = findViewById(R.id.playLoopButton);
+        playLoop.setOnClickListener(new View.OnClickListener() {
 
-//        stopButton = findViewById(R.id.stopButton);
-//        stopButton.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                loop.stop();
-//                loop.prepareAsync();
-//            }
-//        });
+            @Override
+            public void onClick(View view) {
+                loop.start();
+            }
+        });
+
+        stopLoop = findViewById(R.id.stopLoopButton);
+        stopLoop.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                loop.stop();
+            }
+        });
 
 
         for (Integer i : connection.connectedTiles) {
