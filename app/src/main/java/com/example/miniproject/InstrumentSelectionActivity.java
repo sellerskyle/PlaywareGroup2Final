@@ -37,6 +37,8 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
 
     TextView player3Text;
     TextView player4Text;
+    TextView selectionText;
+
     Button playButton;
 
     String[] selectedInstruments = {"","","",""};
@@ -69,8 +71,8 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
 
         for(int i = 0 ; i < numberOfPlayers; i++){
             for(int j = 1 ; j <= tilesPerPlayer; j++){
-                connection.setTileColor(color[i], i);
-                connection.setTileColorRelease(color[i], i);
+                connection.setTileColor(color[i], j);
+                connection.setTileColorRelease(color[i], j);
             }
         }
 
@@ -111,14 +113,17 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
         player4.setOnItemSelectedListener(this);
 
         playButton = findViewById(R.id.playButton);
+        selectionText = findViewById(R.id.selectionMessage);
         playButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 if(!isFull(selectedInstruments)){
                     //display text stating to select an instrument for all players
+                    selectionText.setText("Choose an instrument for each player!");
                 } else if(!isUnique(selectedInstruments)) {
                     //display relevant message
+                    selectionText.setText("Choose a unique instrument for each player!");
                 } else {
                     connection.unregisterListener(InstrumentSelectionActivity.this);
                     Intent i = new Intent(InstrumentSelectionActivity.this, PlayActivity.class);
