@@ -69,8 +69,8 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
 
         for(int i = 0 ; i < numberOfPlayers; i++){
             for(int j = 1 ; j <= tilesPerPlayer; j++){
-                connection.setTileColor(color[i], i);
-                connection.setTileColorRelease(color[i], i);
+                connection.setTileColor(color[i], j);
+                connection.setTileColorRelease(color[i], j);
             }
         }
 
