@@ -4,12 +4,11 @@ import com.livelife.motolibrary.AntData;
 
 import java.util.ArrayList;
 
-public class ChordsSynth implements Instrument{
+public class Melody implements Instrument{
     private ArrayList<Sound> synthSounds;
-    private  boolean isLooped = true;
+    private  boolean isLooped = false;
 
-    public ChordsSynth() {
-
+    public Melody() {
         synthSounds = new ArrayList<>();
         Sound one = new Sound(R.raw.one, AntData.LED_COLOR_RED, "I");
         Sound two = new Sound(R.raw.two, AntData.LED_COLOR_ORANGE, "ii");
