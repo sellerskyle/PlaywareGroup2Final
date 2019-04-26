@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ChordsSynth implements Instrument{
     private ArrayList<Sound> synthSounds;
-    private  boolean isLooped = true;
+    private  boolean isLooped = false;
 
     public ChordsSynth() {
 

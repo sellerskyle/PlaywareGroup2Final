@@ -80,6 +80,7 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
             for(int j = 0 ; j < tilesPerPlayer; j++){
                 int tileid=(tilesPerPlayer*i)+j+1;
                 Log.v("Game","Id:" + tileid);
+
                 connection.setTileColor(color[i], tileid);
             }
         }

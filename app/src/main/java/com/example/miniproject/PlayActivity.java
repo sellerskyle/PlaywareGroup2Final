@@ -17,7 +17,8 @@ import com.livelife.motolibrary.OnAntEventListener;
 
 import java.util.ArrayList;
 
-public class PlayActivity extends AppCompatActivity implements OnAntEventListener {
+public class
+PlayActivity extends AppCompatActivity implements OnAntEventListener {
 
     MotoConnection connection = MotoConnection.getInstance();
     MotoSound sound = MotoSound.getInstance();
@@ -150,8 +151,9 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
         if (playernum == 2){
             if (AntData.getCommand(bytes) == AntData.EVENT_PRESS) {
 
-                if(tilePressed < 4){
+                if(tilePressed <= 4){
                     mediaPlayers.get(tilePressed).start();
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -159,7 +161,7 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                             player1.setBackgroundColor(Color.parseColor("#AED6F1"));
                         }
                 });
-                }else if (AntData.getId(bytes) < 8) {
+                }else if (AntData.getId(bytes) <= 8) {
                     mediaPlayers.get(tilePressed).start();
                     runOnUiThread(new Runnable() {
                         @Override
@@ -172,7 +174,7 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                     //AI Stuff
                 }
             } else if (AntData.getCommand(bytes) == AntData.EVENT_RELEASE) {
-                if (tilePressed < 8) {
+                if (tilePressed <= 8) {
                     mediaPlayers.get(tilePressed).stop();
                 } else {
                     //AI stuff
@@ -180,7 +182,7 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
             }
         }else{
             if (AntData.getCommand(bytes) == AntData.EVENT_PRESS) {
-                if(tilePressed < 3){
+                if(tilePressed <= 3){
                     mediaPlayers.get(tilePressed).start();
                     runOnUiThread(new Runnable() {
                         @Override
@@ -189,7 +191,7 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                     player1.setBackgroundColor(Color.parseColor("#AED6F1"));
                         }
                     });
-                }else if (AntData.getId(bytes) < 6) {
+                }else if (AntData.getId(bytes) <= 6) {
                     mediaPlayers.get(tilePressed).start();
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -198,7 +200,7 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                     player2.setBackgroundColor(Color.parseColor("#AED6F1"));
                                 }
                             });
-                }else if (AntData.getId(bytes) < 9) {
+                }else if (AntData.getId(bytes) <= 9) {
                     mediaPlayers.get(tilePressed).start();
                                     runOnUiThread(new Runnable() {
                                         @Override
@@ -211,7 +213,7 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                     //AI Stuff
                 }
             } else if (AntData.getCommand(bytes) == AntData.EVENT_RELEASE) {
-                if (tilePressed < 9) {
+                if (tilePressed <= 9) {
                     mediaPlayers.get(tilePressed).stop();
                 } else {
                     //AI stuff
