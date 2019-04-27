@@ -74,13 +74,11 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
             tilesPerPlayer = 4;
         }
 
-
         connection.setAllTilesColor(AntData.LED_COLOR_OFF);
         for(int i = 0 ; i < numberOfPlayers; i++){
             for(int j = 0 ; j < tilesPerPlayer; j++){
                 int tileid=(tilesPerPlayer*i)+j+1;
                 Log.v("Game","Id:" + tileid);
-
                 connection.setTileColor(color[i], tileid);
             }
         }
@@ -88,13 +86,8 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
         AItiles = tilesConnected-(numberOfPlayers*tilesPerPlayer);
 
         for(int i = 0 ; i < AItiles; i++){
-            //connection.setTileColor(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
-           // connection.setTileColor(color[3], (10));
-           // connection.setTileColorRelease(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
+            connection.setTileColor(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
         }
-
-
-
 
         Spinner player1 = (Spinner) findViewById(R.id.player1selection);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.instrument_options, android.R.layout.simple_spinner_item);

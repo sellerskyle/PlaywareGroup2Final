@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,15 +20,12 @@ import com.livelife.motolibrary.OnAntEventListener;
 
 public class MainActivity extends AppCompatActivity implements OnAntEventListener {
 
-    MotoConnection connection;// = MotoConnection.getInstance();
+    MotoConnection connection;
     MotoSound sound = MotoSound.getInstance();
 
     Button paringButton;
-    Button TwoPlayerButton;
-    Button ThreePlayerButton;
-
-    TextView tileIDs;
-
+    ImageButton TwoPlayerButton;
+    ImageButton ThreePlayerButton;
 
     boolean isParing = false;
 

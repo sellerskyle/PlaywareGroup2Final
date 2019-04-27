@@ -11,8 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
+        android:background="@android:color/holo_purple"
         android:text="Player 4 Selection:"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/player4selection"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -31,8 +33,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="36dp"
+        android:background="@color/Red"
         android:text="Player 1 Selection:"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,8 +55,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="36dp"
+        android:background="@android:color/holo_blue_dark"
         android:text="Player 2 Selection:"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,8 +76,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
+        android:background="@android:color/holo_green_dark"
         android:text="Player 3 Selection:"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/player3selection"
         app:layout_constraintStart_toStartOf="parent" />
 
