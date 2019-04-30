@@ -46,7 +46,7 @@ public class DrumsActivity extends AppCompatActivity implements OnAntEventListen
         openHat = MediaPlayer.create(this, R.raw.openhat707);
 
         loop = PerfectLoopMediaPlayer.create(this, R.raw.deadmau5chords);
-        //loop.setLooping(true);
+//        loop.setLooping(true);
 
         drumView = findViewById(R.id.drumView);
         drumLayout = findViewById(R.id.drumLayout);

@@ -102,6 +102,7 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                      Sound currentSound = currentInstrument.get(j);
                      soundBank.add(currentSound);
                      mediaPlayers.add(MediaPlayer.create(this, currentSound.resourceID));
+
                  }
              }
          }
@@ -127,8 +128,7 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                         break;
                     default:
                 }
-                connection.setTileColor(AntData.LED_COLOR_VIOLET, 10); //Change 10 to 9 if the array starts at 0
-                connection.setTileColorRelease(AntData.LED_COLOR_VIOLET, 10);
+                connection.setTileColor(AntData.LED_COLOR_WHITE, 10); //Change 10 to 9 if the array starts at 0
             }
             else if (playernum == 2) {
                 switch (i % 4) {
@@ -150,10 +150,8 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                         break;
                     default:
                 }
-                connection.setTileColor(AntData.LED_COLOR_VIOLET, 10); //If array starts in 0 change to 9
-                connection.setTileColor(AntData.LED_COLOR_GREEN, 9);  //If array starts in 0 change to 8
-                connection.setTileColorRelease(AntData.LED_COLOR_VIOLET, 10); //If array starts in 0 change to 9
-                connection.setTileColorRelease(AntData.LED_COLOR_GREEN, 9);  //If array starts in 0 change to 8
+                connection.setTileColor(AntData.LED_COLOR_WHITE, 10); //If array starts in 0 change to 9
+                connection.setTileColor(AntData.LED_COLOR_WHITE, 9);  //If array starts in 0 change to 8
             }
         }
     }
@@ -163,38 +161,55 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
 
     public void onMessageReceived(byte[] bytes, long l) {
         tilePressed = AntData.getId(bytes) - 1;
+        final int tileID = AntData.getId(bytes);
         if (playernum == 2){
             if (AntData.getCommand(bytes) == AntData.EVENT_PRESS) {
 
                 if(tilePressed <= 4){
-                    if(instrumentRack.get(0).isLooped()) {
-                        MediaPlayer k =  mediaPlayers.get(tilePressed);
-                        k = PerfectLoopMediaPlayer.create(this, soundBank.get(tilePressed).resourceID);
-                        k.start();
-                    }else {
-                        mediaPlayers.get(tilePressed).start();
-                    }
+                    mediaPlayers.get(tilePressed).start();
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             player1.setText(soundBank.get(tilePressed).name);
-                            player1.setBackgroundColor(Color.parseColor("#AED6F1"));
+                            switch ( tileID% 4) {
+                                case 1:
+                                    player1.setBackgroundColor(Color.parseColor("#AED6F1"));
+                                    break;
+                                case 2:
+                                    player1.setBackgroundColor(Color.parseColor("#ed7368"));
+                                    break;
+                                case 3:
+                                    player1.setBackgroundColor(Color.parseColor("#ffa856"));
+                                    break;
+                                case 0:
+                                    player1.setBackgroundColor(Color.WHITE);
+                                    break;
+                                default:
+                            }
                         }
                 });
                 }else if (AntData.getId(bytes) <= 8) {
-                    if(instrumentRack.get(1).isLooped()) {
-                        MediaPlayer k =  mediaPlayers.get(tilePressed);
-                        k = PerfectLoopMediaPlayer.create(this, soundBank.get(tilePressed).resourceID);
-                        k.start();
-                    }else {
-                        mediaPlayers.get(tilePressed).start();
-                    }
+                    mediaPlayers.get(tilePressed).start();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                     player2.setText(soundBank.get(tilePressed).name);
-                    player2.setBackgroundColor(Color.parseColor("#AED6F1"));
+                            switch ( tileID% 4) {
+                                case 1:
+                                    player2.setBackgroundColor(Color.parseColor("#AED6F1"));
+                                    break;
+                                case 2:
+                                    player2.setBackgroundColor(Color.parseColor("#ed7368"));
+                                    break;
+                                case 3:
+                                    player2.setBackgroundColor(Color.parseColor("#ffa856"));
+                                    break;
+                                case 0:
+                                    player2.setBackgroundColor(Color.WHITE);
+                                    break;
+                                default:
+                            }
                         }
                     });
                 }else {
@@ -213,49 +228,63 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
         }else{
             if (AntData.getCommand(bytes) == AntData.EVENT_PRESS) {
                 if(tilePressed <= 3){
-                    if(instrumentRack.get(0).isLooped()) {
-                        MediaPlayer k =  mediaPlayers.get(tilePressed);
-                        k = PerfectLoopMediaPlayer.create(this, soundBank.get(tilePressed).resourceID);
-                        k.start();
-                    }else {
-                        mediaPlayers.get(tilePressed).start();
-                    }
+                    mediaPlayers.get(tilePressed).start();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                     player1.setText(soundBank.get(tilePressed).name);
-                    player1.setBackgroundColor(Color.parseColor("#AED6F1"));
+                            switch ( tileID% 3) {
+                                case 1:
+                                    player1.setBackgroundColor(Color.parseColor("#AED6F1"));
+                                    break;
+                                case 2:
+                                    player1.setBackgroundColor(Color.parseColor("#ed7368"));
+                                    break;
+                                case 0:
+                                    player1.setBackgroundColor(Color.WHITE);
+                                    break;
+                                default:
+                            }
                         }
                     });
                 }else if (AntData.getId(bytes) <= 6) {
-                    if(instrumentRack.get(1).isLooped()) {
-                        MediaPlayer k =  mediaPlayers.get(tilePressed);
-                        k = PerfectLoopMediaPlayer.create(this, soundBank.get(tilePressed).resourceID);
-                        k.start();
-                    }else {
-                        mediaPlayers.get(tilePressed).start();
-                    }
+                    mediaPlayers.get(tilePressed).start();
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                     player2.setText(soundBank.get(tilePressed).name);
-                    player2.setBackgroundColor(Color.parseColor("#AED6F1"));
+                                    switch ( tileID% 3) {
+                                        case 1:
+                                            player2.setBackgroundColor(Color.parseColor("#AED6F1"));
+                                            break;
+                                        case 2:
+                                            player2.setBackgroundColor(Color.parseColor("#ed7368"));
+                                            break;
+                                        case 0:
+                                            player2.setBackgroundColor(Color.WHITE);
+                                            break;
+                                        default:
+                                    }
                                 }
                             });
                 }else if (AntData.getId(bytes) <= 9) {
-                    if(instrumentRack.get(2).isLooped()) {
-                        MediaPlayer k =  mediaPlayers.get(tilePressed);
-                        k = PerfectLoopMediaPlayer.create(this, soundBank.get(tilePressed).resourceID);
-                        mediaPlayers.add(tilePressed, k);
-                        mediaPlayers.get(tilePressed).start();
-                    }else {
-                        mediaPlayers.get(tilePressed).start();
-                    }
+                    mediaPlayers.get(tilePressed).start();
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                     player3.setText(soundBank.get(tilePressed).name);
-                    player3.setBackgroundColor(Color.parseColor("#AED6F1"));
+                                            switch ( tileID% 3) {
+                                                case 1:
+                                                    player3.setBackgroundColor(Color.parseColor("#AED6F1"));
+                                                    break;
+                                                case 2:
+                                                    player3.setBackgroundColor(Color.parseColor("#ed7368"));
+                                                    break;
+                                                case 0:
+                                                    player3.setBackgroundColor(Color.WHITE);
+                                                    break;
+                                                default:
+                                            }
                                         }
                                     });
                 }else {
@@ -264,11 +293,6 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
             } else if (AntData.getCommand(bytes) == AntData.EVENT_RELEASE) {
                 if (tilePressed <= 9) {
                     if(instrumentRack.get(tilePressed/3).isLooped()) {
-                        mediaPlayers.get(tilePressed).stop();
-                        mediaPlayers.get(tilePressed).release();
-                        mediaPlayers.remove(tilePressed);
-                        //mediaPlayers.get(tilePressed).prepareAsync();
-                    } else {
                         mediaPlayers.get(tilePressed).stop();
                         mediaPlayers.get(tilePressed).prepareAsync();
                     }
