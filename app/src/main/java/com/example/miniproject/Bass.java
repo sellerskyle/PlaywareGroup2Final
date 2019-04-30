@@ -12,6 +12,7 @@ public class Bass implements Instrument{
     public Bass() {
 
         sounds = new ArrayList<>();
+        loops = new ArrayList<>();
         Sound one = new Sound(R.raw.bone, AntData.LED_COLOR_RED, "1");
         //Sound two = new Sound(R.raw.two, AntData.LED_COLOR_ORANGE, "2");
         //Sound three = new Sound(R.raw.three, AntData.LED_COLOR_GREEN, "3");
