@@ -12,6 +12,7 @@ public class ChordsSynth implements Instrument{
     public ChordsSynth() {
 
         synthSounds = new ArrayList<>();
+        loops = new ArrayList<>();
         Sound one = new Sound(R.raw.one, AntData.LED_COLOR_RED, "I");
         Sound two = new Sound(R.raw.two, AntData.LED_COLOR_ORANGE, "ii");
         Sound three = new Sound(R.raw.three, AntData.LED_COLOR_GREEN, "iii");

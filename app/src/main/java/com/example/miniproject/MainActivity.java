@@ -101,24 +101,25 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
             }
         });
 
-        loop = PerfectLoopMediaPlayer.create(this,R.raw.drum);
-        playLoop = findViewById(R.id.playLoop);
-        playLoop.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                loop.start();
-            }
-        });
-
-        stopLoop = findViewById(R.id.stopLoop);
-        stopLoop.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                loop.stop();
-            }
-        });
+//        playLoop = findViewById(R.id.playLoop);
+//        playLoop.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                loop = PerfectLoopMediaPlayer.create(MainActivity.this,R.raw.edmchords);
+//            }
+//        });
+//
+//        stopLoop = findViewById(R.id.stopLoop);
+//        stopLoop.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                loop.stop();
+//                loop.release();
+//            }
+//        });
 
 
         //connection.setAllTilesColor(AntData.LED_COLOR_BLUE);

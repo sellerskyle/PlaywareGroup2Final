@@ -90,17 +90,18 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                  for (int j = 0; j < tilesPerPlayer; j++) {
                      Sound currentSound = currentInstrument.get(j);
                      soundBank.add(currentSound);
-                     MediaPlayer k = MediaPlayer.create(this, currentSound.resourceID);
-                     k.setLooping(true);
-                     mediaPlayers.add(k);
+//                     MediaPlayer k = MediaPlayer.create(this, currentSound.resourceID);
+//                     k.setLooping(true);
+//                     mediaPlayers.add(k);
                      //mediaPlayers.add(PerfectLoopMediaPlayer.create(this, currentSound.resourceID));
+                     PerfectLoopMediaPlayer plmp = null;
+                     mediaPlayers.add(plmp);
                  }
              } else {
                  for (int j = 0; j < tilesPerPlayer; j++) {
                      Sound currentSound = currentInstrument.get(j);
                      soundBank.add(currentSound);
                      mediaPlayers.add(MediaPlayer.create(this, currentSound.resourceID));
-
                  }
              }
          }
@@ -126,7 +127,8 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                         break;
                     default:
                 }
-                connection.setTileColor(AntData.LED_COLOR_WHITE, 10); //Change 10 to 9 if the array starts at 0
+                connection.setTileColor(AntData.LED_COLOR_VIOLET, 10); //Change 10 to 9 if the array starts at 0
+                connection.setTileColorRelease(AntData.LED_COLOR_VIOLET, 10);
             }
             else if (playernum == 2) {
                 switch (i % 4) {
@@ -148,8 +150,10 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                         break;
                     default:
                 }
-                connection.setTileColor(AntData.LED_COLOR_WHITE, 10); //If array starts in 0 change to 9
-                connection.setTileColor(AntData.LED_COLOR_WHITE, 9);  //If array starts in 0 change to 8
+                connection.setTileColor(AntData.LED_COLOR_VIOLET, 10); //If array starts in 0 change to 9
+                connection.setTileColor(AntData.LED_COLOR_GREEN, 9);  //If array starts in 0 change to 8
+                connection.setTileColorRelease(AntData.LED_COLOR_VIOLET, 10); //If array starts in 0 change to 9
+                connection.setTileColorRelease(AntData.LED_COLOR_GREEN, 9);  //If array starts in 0 change to 8
             }
         }
     }
@@ -163,7 +167,13 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
             if (AntData.getCommand(bytes) == AntData.EVENT_PRESS) {
 
                 if(tilePressed <= 4){
-                    mediaPlayers.get(tilePressed).start();
+                    if(instrumentRack.get(0).isLooped()) {
+                        MediaPlayer k =  mediaPlayers.get(tilePressed);
+                        k = PerfectLoopMediaPlayer.create(this, soundBank.get(tilePressed).resourceID);
+                        k.start();
+                    }else {
+                        mediaPlayers.get(tilePressed).start();
+                    }
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -173,7 +183,13 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                         }
                 });
                 }else if (AntData.getId(bytes) <= 8) {
-                    mediaPlayers.get(tilePressed).start();
+                    if(instrumentRack.get(1).isLooped()) {
+                        MediaPlayer k =  mediaPlayers.get(tilePressed);
+                        k = PerfectLoopMediaPlayer.create(this, soundBank.get(tilePressed).resourceID);
+                        k.start();
+                    }else {
+                        mediaPlayers.get(tilePressed).start();
+                    }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -197,7 +213,13 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
         }else{
             if (AntData.getCommand(bytes) == AntData.EVENT_PRESS) {
                 if(tilePressed <= 3){
-                    mediaPlayers.get(tilePressed).start();
+                    if(instrumentRack.get(0).isLooped()) {
+                        MediaPlayer k =  mediaPlayers.get(tilePressed);
+                        k = PerfectLoopMediaPlayer.create(this, soundBank.get(tilePressed).resourceID);
+                        k.start();
+                    }else {
+                        mediaPlayers.get(tilePressed).start();
+                    }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -206,7 +228,13 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                         }
                     });
                 }else if (AntData.getId(bytes) <= 6) {
-                    mediaPlayers.get(tilePressed).start();
+                    if(instrumentRack.get(1).isLooped()) {
+                        MediaPlayer k =  mediaPlayers.get(tilePressed);
+                        k = PerfectLoopMediaPlayer.create(this, soundBank.get(tilePressed).resourceID);
+                        k.start();
+                    }else {
+                        mediaPlayers.get(tilePressed).start();
+                    }
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -215,7 +243,14 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                                 }
                             });
                 }else if (AntData.getId(bytes) <= 9) {
-                    mediaPlayers.get(tilePressed).start();
+                    if(instrumentRack.get(2).isLooped()) {
+                        MediaPlayer k =  mediaPlayers.get(tilePressed);
+                        k = PerfectLoopMediaPlayer.create(this, soundBank.get(tilePressed).resourceID);
+                        mediaPlayers.add(tilePressed, k);
+                        mediaPlayers.get(tilePressed).start();
+                    }else {
+                        mediaPlayers.get(tilePressed).start();
+                    }
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -229,6 +264,11 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
             } else if (AntData.getCommand(bytes) == AntData.EVENT_RELEASE) {
                 if (tilePressed <= 9) {
                     if(instrumentRack.get(tilePressed/3).isLooped()) {
+                        mediaPlayers.get(tilePressed).stop();
+                        mediaPlayers.get(tilePressed).release();
+                        mediaPlayers.remove(tilePressed);
+                        //mediaPlayers.get(tilePressed).prepareAsync();
+                    } else {
                         mediaPlayers.get(tilePressed).stop();
                         mediaPlayers.get(tilePressed).prepareAsync();
                     }

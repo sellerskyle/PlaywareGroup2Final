@@ -11,6 +11,7 @@ public class Melody implements Instrument{
 
     public Melody() {
         synthSounds = new ArrayList<>();
+        loops = new ArrayList<>();
         Sound one = new Sound(R.raw.mone, AntData.LED_COLOR_RED, "1");
         //Sound two = new Sound(R.raw.two, AntData.LED_COLOR_ORANGE, "2");
         //Sound three = new Sound(R.raw.three, AntData.LED_COLOR_GREEN, "3");
