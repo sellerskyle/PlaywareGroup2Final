@@ -17,7 +17,8 @@ import com.livelife.motolibrary.OnAntEventListener;
 
 import java.util.ArrayList;
 
-public class PlayActivity extends AppCompatActivity implements OnAntEventListener {
+public class
+PlayActivity extends AppCompatActivity implements OnAntEventListener {
 
     MotoConnection connection = MotoConnection.getInstance();
     MotoSound sound = MotoSound.getInstance();
@@ -39,6 +40,11 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
     int tilesConnected = 0;
     int tilePressed;
 
+    int AIOneIndex;
+    int AITwoIndex;
+    ArrayList<MediaPlayer> loopPlayers = new ArrayList<>();
+    ArrayList<Sound> loopSounds = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,9 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
         player2 = findViewById(R.id.player2);
         player3 = findViewById(R.id.player3);
         player4 = findViewById(R.id.player4);
+
+        AIOneIndex = 0;
+        AITwoIndex = 0;
 
         String[] selectedInstruments = bundle.getStringArray("selectedInstruments");
         for(String s:selectedInstruments) {
@@ -81,7 +90,10 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                  for (int j = 0; j < tilesPerPlayer; j++) {
                      Sound currentSound = currentInstrument.get(j);
                      soundBank.add(currentSound);
-                     mediaPlayers.add(PerfectLoopMediaPlayer.create(this, currentSound.resourceID));
+                     MediaPlayer k = MediaPlayer.create(this, currentSound.resourceID);
+                     k.setLooping(true);
+                     mediaPlayers.add(k);
+                     //mediaPlayers.add(PerfectLoopMediaPlayer.create(this, currentSound.resourceID));
                  }
              } else {
                  for (int j = 0; j < tilesPerPlayer; j++) {
@@ -146,12 +158,13 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
 
 
     public void onMessageReceived(byte[] bytes, long l) {
-        tilePressed = AntData.getId(bytes);
+        tilePressed = AntData.getId(bytes) - 1;
         if (playernum == 2){
             if (AntData.getCommand(bytes) == AntData.EVENT_PRESS) {
 
-                if(tilePressed < 4){
+                if(tilePressed <= 4){
                     mediaPlayers.get(tilePressed).start();
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -159,7 +172,7 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                             player1.setBackgroundColor(Color.parseColor("#AED6F1"));
                         }
                 });
-                }else if (AntData.getId(bytes) < 8) {
+                }else if (AntData.getId(bytes) <= 8) {
                     mediaPlayers.get(tilePressed).start();
                     runOnUiThread(new Runnable() {
                         @Override
@@ -172,15 +185,18 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                     //AI Stuff
                 }
             } else if (AntData.getCommand(bytes) == AntData.EVENT_RELEASE) {
-                if (tilePressed < 8) {
-                    mediaPlayers.get(tilePressed).stop();
+                if (tilePressed <= 8) {
+                    if(instrumentRack.get(tilePressed/4).isLooped()) {
+                        mediaPlayers.get(tilePressed).stop();
+                        mediaPlayers.get(tilePressed).prepareAsync();
+                    }
                 } else {
                     //AI stuff
                 }
             }
         }else{
             if (AntData.getCommand(bytes) == AntData.EVENT_PRESS) {
-                if(tilePressed < 3){
+                if(tilePressed <= 3){
                     mediaPlayers.get(tilePressed).start();
                     runOnUiThread(new Runnable() {
                         @Override
@@ -189,7 +205,7 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                     player1.setBackgroundColor(Color.parseColor("#AED6F1"));
                         }
                     });
-                }else if (AntData.getId(bytes) < 6) {
+                }else if (AntData.getId(bytes) <= 6) {
                     mediaPlayers.get(tilePressed).start();
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -198,7 +214,7 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                     player2.setBackgroundColor(Color.parseColor("#AED6F1"));
                                 }
                             });
-                }else if (AntData.getId(bytes) < 9) {
+                }else if (AntData.getId(bytes) <= 9) {
                     mediaPlayers.get(tilePressed).start();
                                     runOnUiThread(new Runnable() {
                                         @Override
@@ -211,8 +227,11 @@ public class PlayActivity extends AppCompatActivity implements OnAntEventListene
                     //AI Stuff
                 }
             } else if (AntData.getCommand(bytes) == AntData.EVENT_RELEASE) {
-                if (tilePressed < 9) {
-                    mediaPlayers.get(tilePressed).stop();
+                if (tilePressed <= 9) {
+                    if(instrumentRack.get(tilePressed/3).isLooped()) {
+                        mediaPlayers.get(tilePressed).stop();
+                        mediaPlayers.get(tilePressed).prepareAsync();
+                    }
                 } else {
                     //AI stuff
                 }

@@ -1,12 +1,14 @@
 package com.example.miniproject;
 import android.content.Intent;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,15 +21,12 @@ import com.livelife.motolibrary.OnAntEventListener;
 
 public class MainActivity extends AppCompatActivity implements OnAntEventListener {
 
-    MotoConnection connection;// = MotoConnection.getInstance();
+    MotoConnection connection;
     MotoSound sound = MotoSound.getInstance();
 
     Button paringButton;
-    Button TwoPlayerButton;
-    Button ThreePlayerButton;
-
-    TextView tileIDs;
-
+    ImageButton TwoPlayerButton;
+    ImageButton ThreePlayerButton;
 
     boolean isParing = false;
 
@@ -35,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
 
     int tilesConnected;
     int numberOfPlayers;
+
+    PerfectLoopMediaPlayer loop;
+    Button playLoop;
+    Button stopLoop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,26 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
                 startActivity(i);
             }
         });
+
+        loop = PerfectLoopMediaPlayer.create(this,R.raw.drum);
+        playLoop = findViewById(R.id.playLoop);
+        playLoop.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                loop.start();
+            }
+        });
+
+        stopLoop = findViewById(R.id.stopLoop);
+        stopLoop.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                loop.stop();
+            }
+        });
+
 
         //connection.setAllTilesColor(AntData.LED_COLOR_BLUE);
     }
