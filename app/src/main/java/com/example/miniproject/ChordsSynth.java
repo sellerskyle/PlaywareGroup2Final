@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 public class ChordsSynth implements Instrument{
     private ArrayList<Sound> synthSounds;
-    private  boolean isLooped = false;
+    private ArrayList<Sound> loops;
+    private  boolean isLooped = true;
 
     public ChordsSynth() {
 
@@ -18,6 +19,14 @@ public class ChordsSynth implements Instrument{
         Sound five = new Sound(R.raw.five, AntData.LED_COLOR_INDIGO, "V");
         Sound six = new Sound(R.raw.six, AntData.LED_COLOR_VIOLET, "vi");
         Sound seven = new Sound(R.raw.seven, AntData.LED_COLOR_WHITE, "vii dim");
+
+        Sound loop1 = new Sound(R.raw.chordloop1, AntData.LED_COLOR_RED, "Loop 1");
+        Sound loop2 = new Sound(R.raw.chordloop2, AntData.LED_COLOR_GREEN, "Loop 2");
+        Sound loop3 = new Sound(R.raw.chordloop3, AntData.LED_COLOR_BLUE, "Loop 3");
+        loops.add(loop1);
+        loops.add(loop2);
+        loops.add(loop3);
+
 
         synthSounds.add(one);
         synthSounds.add(five);
@@ -31,5 +40,6 @@ public class ChordsSynth implements Instrument{
     public Sound get(int index) {
         return synthSounds.get(index);
     }
+    public Sound getLoop(int index) {return loops.get(index);}
     public boolean isLooped() {return isLooped;}
 }

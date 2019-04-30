@@ -1,6 +1,7 @@
 package com.example.miniproject;
 import android.content.Intent;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -33,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
 
     int tilesConnected;
     int numberOfPlayers;
+
+    PerfectLoopMediaPlayer loop;
+    Button playLoop;
+    Button stopLoop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +100,26 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
                 startActivity(i);
             }
         });
+
+        loop = PerfectLoopMediaPlayer.create(this,R.raw.drum);
+        playLoop = findViewById(R.id.playLoop);
+        playLoop.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                loop.start();
+            }
+        });
+
+        stopLoop = findViewById(R.id.stopLoop);
+        stopLoop.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                loop.stop();
+            }
+        });
+
 
         //connection.setAllTilesColor(AntData.LED_COLOR_BLUE);
     }

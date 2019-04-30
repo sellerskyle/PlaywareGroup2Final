@@ -40,6 +40,11 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
     int tilesConnected = 0;
     int tilePressed;
 
+    int AIOneIndex;
+    int AITwoIndex;
+    ArrayList<MediaPlayer> loopPlayers = new ArrayList<>();
+    ArrayList<Sound> loopSounds = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,9 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
         player2 = findViewById(R.id.player2);
         player3 = findViewById(R.id.player3);
         player4 = findViewById(R.id.player4);
+
+        AIOneIndex = 0;
+        AITwoIndex = 0;
 
         String[] selectedInstruments = bundle.getStringArray("selectedInstruments");
         for(String s:selectedInstruments) {
@@ -82,7 +90,10 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                  for (int j = 0; j < tilesPerPlayer; j++) {
                      Sound currentSound = currentInstrument.get(j);
                      soundBank.add(currentSound);
-                     mediaPlayers.add(PerfectLoopMediaPlayer.create(this, currentSound.resourceID));
+                     MediaPlayer k = MediaPlayer.create(this, currentSound.resourceID);
+                     k.setLooping(true);
+                     mediaPlayers.add(k);
+                     //mediaPlayers.add(PerfectLoopMediaPlayer.create(this, currentSound.resourceID));
                  }
              } else {
                  for (int j = 0; j < tilesPerPlayer; j++) {
@@ -147,7 +158,7 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
 
 
     public void onMessageReceived(byte[] bytes, long l) {
-        tilePressed = AntData.getId(bytes);
+        tilePressed = AntData.getId(bytes) - 1;
         if (playernum == 2){
             if (AntData.getCommand(bytes) == AntData.EVENT_PRESS) {
 
@@ -175,7 +186,10 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                 }
             } else if (AntData.getCommand(bytes) == AntData.EVENT_RELEASE) {
                 if (tilePressed <= 8) {
-                    mediaPlayers.get(tilePressed).stop();
+                    if(instrumentRack.get(tilePressed/4).isLooped()) {
+                        mediaPlayers.get(tilePressed).stop();
+                        mediaPlayers.get(tilePressed).prepareAsync();
+                    }
                 } else {
                     //AI stuff
                 }
@@ -214,7 +228,10 @@ PlayActivity extends AppCompatActivity implements OnAntEventListener {
                 }
             } else if (AntData.getCommand(bytes) == AntData.EVENT_RELEASE) {
                 if (tilePressed <= 9) {
-                    mediaPlayers.get(tilePressed).stop();
+                    if(instrumentRack.get(tilePressed/3).isLooped()) {
+                        mediaPlayers.get(tilePressed).stop();
+                        mediaPlayers.get(tilePressed).prepareAsync();
+                    }
                 } else {
                     //AI stuff
                 }
