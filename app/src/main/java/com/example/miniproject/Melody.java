@@ -13,8 +13,8 @@ public class Melody implements Instrument{
         synthSounds = new ArrayList<>();
         loops = new ArrayList<>();
         Sound one = new Sound(R.raw.mone, AntData.LED_COLOR_RED, "1");
-        //Sound two = new Sound(R.raw.two, AntData.LED_COLOR_ORANGE, "2");
-        //Sound three = new Sound(R.raw.three, AntData.LED_COLOR_GREEN, "3");
+        Sound two = new Sound(R.raw.mtwo, AntData.LED_COLOR_ORANGE, "2");
+        Sound three = new Sound(R.raw.mthree, AntData.LED_COLOR_GREEN, "3");
         Sound four = new Sound(R.raw.mfour, AntData.LED_COLOR_BLUE, "4");
         Sound five = new Sound(R.raw.mfive, AntData.LED_COLOR_INDIGO, "5");
         Sound six = new Sound(R.raw.msix, AntData.LED_COLOR_VIOLET, "6");
@@ -29,8 +29,8 @@ public class Melody implements Instrument{
 
         synthSounds.add(one);
         synthSounds.add(five);
-        synthSounds.add(four);
-        synthSounds.add(six);
+        synthSounds.add(two);
+        synthSounds.add(three);
 //        synthSounds.add(two);
 //        synthSounds.add(three);
 //        synthSounds.add(seven);

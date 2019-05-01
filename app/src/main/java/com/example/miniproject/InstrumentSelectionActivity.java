@@ -52,6 +52,7 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
 
         connection=MotoConnection.getInstance();
         connection.registerListener(this);
+        connection.setAllTilesColor(AntData.LED_COLOR_OFF);
 
         Bundle bundle =this.getIntent().getExtras();
         numberOfPlayers = bundle.getInt("player");

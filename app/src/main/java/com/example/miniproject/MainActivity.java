@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
     boolean isParing = false;
 
     TextView statusTextView;
+    TextView selectionText;
 
     int tilesConnected;
     int numberOfPlayers;
@@ -73,18 +74,20 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
                 isParing = !isParing;
             }
         });
-
+        selectionText = findViewById(R.id.selectionMessage2);
         TwoPlayerButton = findViewById(R.id.TwoPlayerButton);
         TwoPlayerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                numberOfPlayers = 2;
-                connection.unregisterListener(MainActivity.this);
-                Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
-                i.putExtra("player",numberOfPlayers);
+                if (check()) {
+                    numberOfPlayers = 2;
+                    connection.unregisterListener(MainActivity.this);
+                    Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
+                    i.putExtra("player", numberOfPlayers);
 
-                startActivity(i);
+                    startActivity(i);
+                }
             }
         });
 
@@ -93,11 +96,13 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
 
             @Override
             public void onClick(View view) {
-                numberOfPlayers = 3;
-                connection.unregisterListener(MainActivity.this);
-                Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
-                i.putExtra("player",numberOfPlayers);
-                startActivity(i);
+                if (check()) {
+                    numberOfPlayers = 3;
+                    connection.unregisterListener(MainActivity.this);
+                    Intent i = new Intent(MainActivity.this, InstrumentSelectionActivity.class);
+                    i.putExtra("player", numberOfPlayers);
+                    startActivity(i);
+                }
             }
         });
 
@@ -107,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
 //
 //            @Override
 //            public void onClick(View view) {
-//                loop = PerfectLoopMediaPlayer.create(MainActivity.this,R.raw.edmchords);
+//                loop = PerfectLoopMediaPlayer.create(MainActivity.this,R.raw.deadmau5chords);
 //            }
 //        });
 //
@@ -122,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
 //        });
 
 
-        //connection.setAllTilesColor(AntData.LED_COLOR_BLUE);
+        connection.setAllTilesColor(AntData.LED_COLOR_BLUE);
     }
 
     @Override
@@ -158,5 +163,19 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
         super.onDestroy();
         connection.stopMotoConnection();
         connection.unregisterListener(MainActivity.this);
+    }
+
+    private boolean check() {
+//        if (tilesConnected != 10){
+//            selectionText.setText("Please Connect Exactly 10 Tiles.");
+//            return false;
+//        }
+
+        if(isParing) {
+            selectionText.setText("Please Press 'Stop Paring'.");
+            return false;
+        }
+
+        return true;
     }
 }
