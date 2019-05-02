@@ -26,7 +26,7 @@ import java.util.Set;
 
 
 public class InstrumentSelectionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, OnAntEventListener {
-
+ //Tobias From here
     MotoConnection connection;// = MotoConnection.getInstance();
     MotoSound sound = MotoSound.getInstance();
     int tilesConnected = 0;
@@ -89,7 +89,9 @@ public class InstrumentSelectionActivity extends AppCompatActivity implements Ad
         for(int i = 0 ; i < AItiles; i++){
             connection.setTileColor(color[i+numberOfPlayers], (numberOfPlayers*tilesPerPlayer)+i+1);
         }
-
+        
+        //To here
+        
         Spinner player1 = (Spinner) findViewById(R.id.player1selection);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.instrument_options, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
