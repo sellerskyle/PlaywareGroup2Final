@@ -17,7 +17,7 @@ import com.livelife.motolibrary.MotoConnection;
 import com.livelife.motolibrary.MotoSound;
 import com.livelife.motolibrary.OnAntEventListener;
 
-
+//Tobias did the MainActivity
 
 public class MainActivity extends AppCompatActivity implements OnAntEventListener {
 
@@ -105,27 +105,6 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
                 }
             }
         });
-
-
-//        playLoop = findViewById(R.id.playLoop);
-//        playLoop.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                loop = PerfectLoopMediaPlayer.create(MainActivity.this,R.raw.deadmau5chords);
-//            }
-//        });
-//
-//        stopLoop = findViewById(R.id.stopLoop);
-//        stopLoop.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                loop.stop();
-//                loop.release();
-//            }
-//        });
-
 
         connection.setAllTilesColor(AntData.LED_COLOR_BLUE);
     }
