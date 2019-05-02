@@ -166,11 +166,11 @@ public class MainActivity extends AppCompatActivity implements OnAntEventListene
     }
 
     private boolean check() {
-//        if (tilesConnected != 10){
-//            selectionText.setText("Please Connect Exactly 10 Tiles.");
-//            return false;
-//        }
 
+        if(tilesConnected != 10) {
+            selectionText.setText("Please connect exactly 10 tiles.");
+            return false;
+        }
         if(isParing) {
             selectionText.setText("Please Press 'Stop Paring'.");
             return false;
